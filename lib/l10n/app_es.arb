@@ -1,0 +1,21 @@
+{
+    "configuration": "Configuración",
+    "horizontalSize": "Tamaño horizontal",
+    "verticalSize": "Tamaño vertical",
+    "positionX": "Posición en el eje X",
+    "positionY": "Posición en el eje Y",
+    "roundedBorderPc": "Porcentaje de bordes redondeados",
+    "elevation": "Elevación",
+    "primaryColor": "Color Primario",
+    "secondaryColor": "Color Secundario",
+    "backgroundColor": "Color de fondo",
+    "designerType": "Tipo de diseño",
+    "animationType": "Tipo de animación",
+    "animationCurve": "Curva de la animación",
+    "animationDuration": "Duración de la animación",
+    "bannerImage": "Imagen del banner",
+    "bannerBackgroundImage": "Imagen de fondo del banner",
+    "offsetX": "Corrimiento de la sombra en X",
+    "offsetY": "Corrimiento de la sombra en Y",
+    "fontType": "Tipo de letra"
+}
