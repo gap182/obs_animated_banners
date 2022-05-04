@@ -4,6 +4,6 @@ import 'package:obs_animated_banners/src/features/ui/controller/config_banner_vi
 
 final configBannerPod =
     StateNotifierProvider<ConfigBannerViewModel, ConfigBannerModel>((ref) {
-  final initConfigModel = ConfigBannerModel();
+  const initConfigModel = ConfigBannerModel();
   return ConfigBannerViewModel(initConfigModel);
 });
