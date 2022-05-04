@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
 import 'package:obs_animated_banners/src/features/ui/subpages/configuration_banner.dart';
 import 'package:obs_animated_banners/src/features/ui/subpages/saved_banner.dart';
+import 'package:obs_animated_banners/src/features/ui/widgets/background_side.dart';
 
 class MainView extends ConsumerWidget {
   const MainView({Key? key}) : super(key: key);
@@ -26,11 +27,7 @@ class MainView extends ConsumerWidget {
             width: 5,
             color: Colors.grey,
           ),
-          Expanded(
-            child: Container(
-              color: ref.watch(configBannerPod).background,
-            ),
-          )
+          const BackgroundSide(),
         ],
       ),
     );

@@ -5,19 +5,19 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 String getDesignName(DesignType designType, BuildContext context) {
   switch (designType) {
-    case DesignType.one:
-      return AppLocalizations.of(context)!.designOneName;
+    case DesignType.container:
+      return AppLocalizations.of(context)!.designContainer;
 
-    case DesignType.two:
-      return AppLocalizations.of(context)!.designTwoName;
-    case DesignType.three:
-      return AppLocalizations.of(context)!.designThreeName;
-    case DesignType.four:
-      return AppLocalizations.of(context)!.designFourName;
-    case DesignType.five:
-      return AppLocalizations.of(context)!.designFiveName;
+    case DesignType.containerDivide:
+      return AppLocalizations.of(context)!.designContainerDivide;
+    case DesignType.letter:
+      return AppLocalizations.of(context)!.designLetter;
+    case DesignType.letterDivide:
+      return AppLocalizations.of(context)!.designLetterDivide;
+    case DesignType.image:
+      return AppLocalizations.of(context)!.image;
     default:
-      return AppLocalizations.of(context)!.designTwoName;
+      return AppLocalizations.of(context)!.designContainer;
   }
 }
 

@@ -30,6 +30,10 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
         state = state.copyWith(radiusSize: value);
         break;
 
+      case SliderType.borderSize:
+        state = state.copyWith(borderSize: value);
+        break;
+
       case SliderType.elevation:
         state = state.copyWith(elevation: value);
         break;
@@ -99,10 +103,18 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
   }
 
   void eraseImage(ImageTypeLocal imageTypeLocal) {
-    if (imageTypeLocal == ImageTypeLocal.bannerImage) {
-      state = state.copyWith(bannerImage: null);
-    } else if (imageTypeLocal == ImageTypeLocal.intrinsicImage) {
-      state = state.copyWith(intrinsicImage: null);
-    }
+    state = state.nullImages(imageTypeLocal);
+  }
+
+  void changeConfigActivation() {
+    state = state.copyWith(isConfig: !state.isConfig);
+  }
+
+  void changeFontSize(double fonntSize) {
+    state = state.copyWith(fontSize: fonntSize);
+  }
+
+  void changeBorderSide(double borderSize) {
+    state = state.copyWith(borderSize: borderSize);
   }
 }
