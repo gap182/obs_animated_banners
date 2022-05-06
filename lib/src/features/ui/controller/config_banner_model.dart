@@ -5,7 +5,14 @@ import 'package:obs_animated_banners/src/core/theme/colors.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_viewmodel.dart';
 
 enum DesignType { container, containerDivide, letter, letterDivide, image }
-enum AnimationType { slide, visibility, increase }
+enum AnimationType {
+  slideXLR,
+  slideXRL,
+  slideYBT,
+  slideYTB,
+  visibility,
+  increase
+}
 enum AnimationCurve {
   bounceIn,
   bounceOut,
@@ -83,9 +90,9 @@ class ConfigBannerModel extends Equatable {
     this.shadowColor = Colors.black,
     this.isImageBase = false,
     this.designType = DesignType.container,
-    this.animationType = AnimationType.slide,
+    this.animationType = AnimationType.slideXLR,
     this.animationCurve = AnimationCurve.ease,
-    this.animationDuration = 300,
+    this.animationDuration = 10000,
     this.bannerImage,
     this.intrinsicImage,
     this.fontFamily = FontFamily.montserrat,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
 import 'package:obs_animated_banners/src/features/ui/subpages/configuration_banner.dart';
 import 'package:obs_animated_banners/src/features/ui/subpages/saved_banner.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/background_side.dart';

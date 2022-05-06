@@ -23,15 +23,21 @@ String getDesignName(DesignType designType, BuildContext context) {
 
 String getAnimationName(AnimationType animationType, BuildContext context) {
   switch (animationType) {
-    case AnimationType.slide:
-      return AppLocalizations.of(context)!.animationSlideName;
+    case AnimationType.slideXLR:
+      return AppLocalizations.of(context)!.animationSlideXLRName;
+    case AnimationType.slideXRL:
+      return AppLocalizations.of(context)!.animationSlideXRLName;
+    case AnimationType.slideYBT:
+      return AppLocalizations.of(context)!.animationSlideYBTName;
+    case AnimationType.slideYTB:
+      return AppLocalizations.of(context)!.animationSlideYTBName;
     case AnimationType.visibility:
       return AppLocalizations.of(context)!.animationVisibilityName;
     case AnimationType.increase:
       return AppLocalizations.of(context)!.animationIncreaseName;
 
     default:
-      return AppLocalizations.of(context)!.animationSlideName;
+      return AppLocalizations.of(context)!.animationSlideXLRName;
   }
 }
 

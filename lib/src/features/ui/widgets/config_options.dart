@@ -439,7 +439,7 @@ class ConfigOptions extends ConsumerWidget {
             final item = ref.watch(configBannerPod).animationCurve;
             return DropdownButtonFormField<AnimationCurve>(
                 decoration: InputDecoration(
-                    label: Text(AppLocalizations.of(context)!.animationType)),
+                    label: Text(AppLocalizations.of(context)!.animationCurve)),
                 value: item,
                 items: List.generate(
                   items.length,

@@ -1,20 +1,61 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
+import 'package:obs_animated_banners/src/core/utils/functions.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/designs/design_container.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/designs/design_container_divide.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/designs/design_image.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/designs/design_letter.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/designs/design_letter_divide.dart';
+import 'package:obs_animated_banners/src/features/ui/widgets/animations/slide_lr_animation.dart';
 
-class BackgroundSide extends ConsumerWidget {
+class BackgroundSide extends ConsumerStatefulWidget {
   const BackgroundSide({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _BackgroundSideState();
+}
+
+class _BackgroundSideState extends ConsumerState<BackgroundSide>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  StreamController<AnimationController> animationStream = StreamController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    animationStream.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final valuesConfig = ref.watch(configBannerPod);
+    final animationType = valuesConfig.animationType;
     final size = MediaQuery.of(context).size;
+    final tween = ref.watch(animationPod(size));
+    final curve = getCurve(valuesConfig);
+
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: valuesConfig.animationDuration.toInt()),
+    );
+
+    ref.read(animationControllerPod.notifier).changeController(controller);
+
+    final isSlide = (animationType == AnimationType.slideXLR ||
+        animationType == AnimationType.slideXRL ||
+        animationType == AnimationType.slideYBT ||
+        animationType == AnimationType.slideYTB);
+
+    animation = tween.animate(
+      CurvedAnimation(parent: controller, curve: curve),
+    );
 
     return Expanded(
       child: Stack(
@@ -22,29 +63,15 @@ class BackgroundSide extends ConsumerWidget {
           Container(
             color: ref.watch(configBannerPod).background,
           ),
-          Positioned(
-              left: size.width * valuesConfig.pcPosX,
-              bottom: size.height * valuesConfig.pcPosY,
-              child: _getBanner(valuesConfig, size) ?? const SizedBox.shrink())
+          valuesConfig.isConfig
+              ? Positioned(
+                  left: size.width * valuesConfig.pcPosX,
+                  bottom: size.height * valuesConfig.pcPosY,
+                  child: getBanner(valuesConfig.designType, size))
+              : const SizedBox.shrink(),
+          isSlide ? SlideLR(animation: animation) : const SizedBox.shrink(),
         ],
       ),
     );
-  }
-
-  Widget? _getBanner(ConfigBannerModel values, Size size) {
-    switch (values.designType) {
-      case DesignType.image:
-        return const DesignImage();
-
-      case DesignType.container:
-        return const DesignContainer();
-      case DesignType.containerDivide:
-        return const DesignContainerDivide();
-      case DesignType.letter:
-        return const DesignLetter();
-      case DesignType.letterDivide:
-        return const DesignLetterDivide();
-      default:
-    }
   }
 }
