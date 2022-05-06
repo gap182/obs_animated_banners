@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
 import 'package:obs_animated_banners/src/core/utils/functions.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
+import 'package:obs_animated_banners/src/features/ui/widgets/animations/scale_animation.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/animations/slide_lr_animation.dart';
+import 'package:obs_animated_banners/src/features/ui/widgets/animations/visibility_animation.dart';
 
 class BackgroundSide extends ConsumerStatefulWidget {
   const BackgroundSide({Key? key}) : super(key: key);
@@ -69,7 +71,13 @@ class _BackgroundSideState extends ConsumerState<BackgroundSide>
                   bottom: size.height * valuesConfig.pcPosY,
                   child: getBanner(valuesConfig.designType, size))
               : const SizedBox.shrink(),
-          isSlide ? SlideLR(animation: animation) : const SizedBox.shrink(),
+          isSlide
+              ? SlideLR(animation: animation)
+              : valuesConfig.animationType == AnimationType.visibility
+                  ? VisibilityAnimation(listenable: animation)
+                  : valuesConfig.animationType == AnimationType.increase
+                      ? ScaleAnimation(listenable: animation)
+                      : const SizedBox.shrink(),
         ],
       ),
     );

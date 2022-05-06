@@ -41,6 +41,9 @@ final animationPod = Provider.family<Tween<double>, Size>((ref, size) {
     case AnimationType.visibility:
       return Tween<double>(begin: 0.0, end: 1.0);
 
+    case AnimationType.increase:
+      return Tween<double>(begin: 0.0, end: 1.0);
+
     default:
       return Tween(begin: 0.0, end: 200);
   }

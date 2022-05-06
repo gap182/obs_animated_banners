@@ -12,11 +12,32 @@ import 'package:obs_animated_banners/src/features/ui/widgets/custom_slider.dart'
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/primary_button.dart';
 
-class ConfigOptions extends ConsumerWidget {
+class ConfigOptions extends ConsumerStatefulWidget {
   const ConfigOptions({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ConfigOptionsState();
+}
+
+class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
+  final durationController = TextEditingController();
+
+  @override
+  void dispose() {
+    durationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
+    durationController.text =
+        ref.read(configBannerPod).animationDuration.toString();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final configModel = ref.watch(configBannerPod);
 
     return Column(
@@ -486,6 +507,7 @@ class ConfigOptions extends ConsumerWidget {
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
           ],
+          controller: durationController,
           decoration: InputDecoration(
             label: Text(AppLocalizations.of(context)!.animationDuration),
           ),
