@@ -41,7 +41,7 @@ class DesignContainer extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Texto de prueba",
+                      values.title,
                       style: TextStyle(
                         color: values.titleColor,
                         fontFamily: values.fontFamily.toShortString(),
@@ -49,10 +49,10 @@ class DesignContainer extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Text(
-                      "Descripción de prueba",
+                      values.subtitle,
                       style: TextStyle(
                         color: values.subtitleColor,
                         fontFamily: values.fontFamily.toShortString(),

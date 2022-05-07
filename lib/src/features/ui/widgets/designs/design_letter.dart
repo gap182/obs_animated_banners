@@ -17,7 +17,7 @@ class DesignLetter extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Texto de prueba",
+                values.title,
                 style: TextStyle(
                   color: values.titleColor,
                   fontFamily: values.fontFamily.toShortString(),
@@ -28,7 +28,7 @@ class DesignLetter extends ConsumerWidget {
                 height: 20,
               ),
               Text(
-                "Descripción de prueba",
+                values.subtitle,
                 style: TextStyle(
                   color: values.subtitleColor,
                   fontFamily: values.fontFamily.toShortString(),

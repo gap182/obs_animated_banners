@@ -52,5 +52,5 @@
     "image": "Imagen",
     "title": "Título",
     "subtitle": "Subtítulo",
-    "timePause": "Tiempo de pausa"
+    "timePause": "Tiempo de pausa (ms)"
 }
