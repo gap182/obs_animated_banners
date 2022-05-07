@@ -77,6 +77,7 @@ class ConfigBannerModel extends Equatable {
   final bool isConfig;
   final String title;
   final String subtitle;
+  final bool locked;
   const ConfigBannerModel({
     this.pcWidth = 0.2,
     this.pcHeight = 0.1,
@@ -105,6 +106,7 @@ class ConfigBannerModel extends Equatable {
     this.borderSize = 4.0,
     this.title = '',
     this.subtitle = '',
+    this.locked = false,
   });
 
   ConfigBannerModel copyWith({
@@ -135,6 +137,7 @@ class ConfigBannerModel extends Equatable {
     bool? isConfig,
     String? title,
     String? subtitle,
+    bool? locked,
   }) {
     return ConfigBannerModel(
       pcWidth: pcWidth ?? this.pcWidth,
@@ -164,6 +167,7 @@ class ConfigBannerModel extends Equatable {
       isConfig: isConfig ?? this.isConfig,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
+      locked: locked ?? this.locked,
     );
   }
 
@@ -263,7 +267,7 @@ class ConfigBannerModel extends Equatable {
 
   @override
   String toString() {
-    return 'ConfigBannerModel(pcWidth: $pcWidth, pcHeight: $pcHeight, pcPosX: $pcPosX, pcPosY: $pcPosY, radiusSize: $radiusSize, elevation: $elevation, fontSize: $fontSize, borderSize: $borderSize, elevationOffset: $elevationOffset, primary: $primary, secondary: $secondary, background: $background, titleColor: $titleColor, subtitleColor: $subtitleColor, shadowColor: $shadowColor, isImageBase: $isImageBase, designType: $designType, animationType: $animationType, animationCurve: $animationCurve, animationDuration: $animationDuration, pauseTime: $pauseTime, bannerImage: $bannerImage, intrinsicImage: $intrinsicImage, fontFamily: $fontFamily, isConfig: $isConfig, title: $title, subtitle: $subtitle)';
+    return 'ConfigBannerModel(pcWidth: $pcWidth, pcHeight: $pcHeight, pcPosX: $pcPosX, pcPosY: $pcPosY, radiusSize: $radiusSize, elevation: $elevation, fontSize: $fontSize, borderSize: $borderSize, elevationOffset: $elevationOffset, primary: $primary, secondary: $secondary, background: $background, titleColor: $titleColor, subtitleColor: $subtitleColor, shadowColor: $shadowColor, isImageBase: $isImageBase, designType: $designType, animationType: $animationType, animationCurve: $animationCurve, animationDuration: $animationDuration, pauseTime: $pauseTime, bannerImage: $bannerImage, intrinsicImage: $intrinsicImage, fontFamily: $fontFamily, isConfig: $isConfig, title: $title, subtitle: $subtitle, locked: $locked)';
   }
 
   @override
@@ -296,6 +300,7 @@ class ConfigBannerModel extends Equatable {
       isConfig,
       title,
       subtitle,
+      locked,
     ];
   }
 }

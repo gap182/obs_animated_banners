@@ -14,14 +14,15 @@ class AnimationViewModel extends StateNotifier<AnimationModel> {
   }
 
   void start() {
-    final pauseTime = ref.read(configBannerPod).pauseTime;
+    final config = ref.read(configBannerPod);
     if (state.animationController != null) {
       state.animationController!.forward();
 
-      if (!state.locked) {
+      if (!config.locked) {
         state.animationController!.addStatusListener((status) async {
           if (status == AnimationStatus.completed) {
-            await Future.delayed(Duration(milliseconds: pauseTime.ceil()));
+            await Future.delayed(
+                Duration(milliseconds: config.pauseTime.ceil()));
             back();
           }
         });
@@ -45,10 +46,6 @@ class AnimationViewModel extends StateNotifier<AnimationModel> {
     if (state.animationController != null) {
       state.animationController!.reverse();
     }
-  }
-
-  void changeLock() {
-    state = state.copyWith(locked: !state.locked);
   }
 
   void stop() {

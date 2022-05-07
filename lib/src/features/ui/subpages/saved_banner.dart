@@ -91,11 +91,14 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
                 children: [
                   Consumer(
                     builder: (context, ref, child) {
+                      final locked = ref.watch(
+                          configBannerPod.select((value) => value.locked));
                       return Expanded(
                         child: AnimationButton(
-                          child: Icon(Icons.lock),
-                          onTap: controller.changeLock,
-                          color: null,
+                          child: locked
+                              ? const Icon(Icons.lock_open)
+                              : const Icon(Icons.lock),
+                          onTap: configViewmodel.changeLock,
                         ),
                       );
                     },
