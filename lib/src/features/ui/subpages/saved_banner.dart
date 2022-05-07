@@ -160,8 +160,6 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
                               return;
                             }
 
-                            print('adding');
-
                             crud.addGroup(bannerStorage.name, bannerStorage);
                           }
                         : null,
@@ -181,7 +179,10 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
               text: AppLocalizations.of(context)!.deleteGroups,
               height: 50,
             ),
-            const GroupList()
+            const SizedBox(
+              height: 20,
+            ),
+            GroupList()
           ],
         ),
       ),

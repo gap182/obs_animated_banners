@@ -40,10 +40,12 @@ class Crud {
     ref.read(listGroupPod.notifier).updateGroups(getGroups());
   }
 
-  void addText(String name, Map<String, dynamic> text) {
+  void addText(String name, Map<String, dynamic> text, int index) {
     if (box == null) return;
     final storage = box!.get(name);
     if (storage == null) return;
+    text["index"] = index;
+
     final texts = storage.texts;
     texts.add(text);
     final newStorage = storage.copyWith(texts: texts);

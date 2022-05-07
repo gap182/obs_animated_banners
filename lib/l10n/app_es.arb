@@ -56,5 +56,6 @@
     "saveGroup": "Guardar grupo",
     "nameGroup": "Nombre de grupo",
     "deleteGroups": "Eliminar todos los grupos",
-    "existGroup": "Ya existe un grupo con ese nombre, intentan con otro"
+    "existGroup": "Ya existe un grupo con ese nombre, intentan con otro",
+    "emptyText": "Debes tener un título no vacío para poder guardar"
 }

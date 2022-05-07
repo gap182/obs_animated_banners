@@ -8,4 +8,8 @@ class ListGroupViewModel extends StateNotifier<ListGroupModel> {
   void updateGroups(List<BannerStorage> groups) {
     state = state.copyWith(groups: groups);
   }
+
+  void changeSelection(int indexGroup, int indexText) {
+    state = state.copyWith(indexGroup: indexGroup, indexText: indexText);
+  }
 }
