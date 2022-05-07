@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:obs_animated_banners/src/core/theme/colors.dart';
+import 'package:obs_animated_banners/src/core/utils/common_extensions.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_viewmodel.dart';
 
 enum DesignType { container, containerDivide, letter, letterDivide, image }
@@ -39,16 +43,6 @@ enum SliderType {
   offsetY
 }
 
-extension FontFamilyX on FontFamily {
-  String toShortString() {
-    String family = toString().split('.').last;
-
-    final result = family.replaceFirst(family[0], family[0].toUpperCase());
-
-    return result;
-  }
-}
-
 class ConfigBannerModel extends Equatable {
   final double pcWidth;
   final double pcHeight;
@@ -71,8 +65,8 @@ class ConfigBannerModel extends Equatable {
   final AnimationCurve animationCurve;
   final double animationDuration;
   final double pauseTime;
-  final Image? bannerImage;
-  final Image? intrinsicImage;
+  final Uint8List? bannerImage;
+  final Uint8List? intrinsicImage;
   final FontFamily fontFamily;
   final bool isConfig;
   final String title;
@@ -85,6 +79,8 @@ class ConfigBannerModel extends Equatable {
     this.pcPosY = 0.1,
     this.radiusSize = 10.0,
     this.elevation = 5.0,
+    this.fontSize = 10,
+    this.borderSize = 4.0,
     this.elevationOffset = const Offset(0, 5),
     this.primary = UiColors.primaryColor,
     this.secondary = UiColors.secondaryColor,
@@ -102,8 +98,6 @@ class ConfigBannerModel extends Equatable {
     this.intrinsicImage,
     this.fontFamily = FontFamily.montserrat,
     this.isConfig = true,
-    this.fontSize = 10,
-    this.borderSize = 4.0,
     this.title = '',
     this.subtitle = '',
     this.locked = false,
@@ -131,8 +125,8 @@ class ConfigBannerModel extends Equatable {
     AnimationCurve? animationCurve,
     double? animationDuration,
     double? pauseTime,
-    Image? bannerImage,
-    Image? intrinsicImage,
+    Uint8List? bannerImage,
+    Uint8List? intrinsicImage,
     FontFamily? fontFamily,
     bool? isConfig,
     String? title,
@@ -303,4 +297,87 @@ class ConfigBannerModel extends Equatable {
       locked,
     ];
   }
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+    final offset = {"dx": elevationOffset.dx, "dy": elevationOffset.dy};
+
+    result.addAll({'pcWidth': pcWidth});
+    result.addAll({'pcHeight': pcHeight});
+    result.addAll({'pcPosX': pcPosX});
+    result.addAll({'pcPosY': pcPosY});
+    result.addAll({'radiusSize': radiusSize});
+    result.addAll({'elevation': elevation});
+    result.addAll({'fontSize': fontSize});
+    result.addAll({'borderSize': borderSize});
+    result.addAll({'elevationOffset': offset});
+    result.addAll({'primary': primary.value});
+    result.addAll({'secondary': secondary.value});
+    result.addAll({'background': background.value});
+    result.addAll({'titleColor': titleColor.value});
+    result.addAll({'subtitleColor': subtitleColor.value});
+    result.addAll({'shadowColor': shadowColor.value});
+    result.addAll({'isImageBase': isImageBase});
+    result.addAll({'designType': designType.toShortString()});
+    result.addAll({'animationType': animationType.toShortString()});
+    result.addAll({'animationCurve': animationCurve.toShortString()});
+    result.addAll({'animationDuration': animationDuration});
+    result.addAll({'pauseTime': pauseTime});
+    if (bannerImage != null) {
+      result.addAll({'bannerImage': bannerImage!.toBase64()});
+    }
+    if (intrinsicImage != null) {
+      result.addAll({'intrinsicImage': intrinsicImage!.toBase64()});
+    }
+    result.addAll({'fontFamily': fontFamily.toShortString()});
+    result.addAll({'isConfig': isConfig});
+    result.addAll({'title': title});
+    result.addAll({'subtitle': subtitle});
+    result.addAll({'locked': locked});
+
+    return result;
+  }
+
+  factory ConfigBannerModel.fromMap(Map<String, dynamic> map) {
+    return ConfigBannerModel(
+      pcWidth: map['pcWidth']?.toDouble() ?? 0.0,
+      pcHeight: map['pcHeight']?.toDouble() ?? 0.0,
+      pcPosX: map['pcPosX']?.toDouble() ?? 0.0,
+      pcPosY: map['pcPosY']?.toDouble() ?? 0.0,
+      radiusSize: map['radiusSize']?.toDouble() ?? 0.0,
+      elevation: map['elevation']?.toDouble() ?? 0.0,
+      fontSize: map['fontSize']?.toDouble() ?? 0.0,
+      borderSize: map['borderSize']?.toDouble() ?? 0.0,
+      elevationOffset:
+          Offset(map["elevationOffset"]["dx"], map["elevationOffset"]["dy"]),
+      primary: Color(map['primary']),
+      secondary: Color(map['secondary']),
+      background: Color(map['background']),
+      titleColor: Color(map['titleColor']),
+      subtitleColor: Color(map['subtitleColor']),
+      shadowColor: Color(map['shadowColor']),
+      isImageBase: map['isImageBase'] ?? false,
+      designType: (map['designType'] as String).toDesignType(),
+      animationType: (map['animationType'] as String).toAnimationType(),
+      animationCurve: (map['animationCurve'] as String).toAnimationCurve(),
+      animationDuration: map['animationDuration']?.toDouble() ?? 0.0,
+      pauseTime: map['pauseTime']?.toDouble() ?? 0.0,
+      bannerImage: map['bannerImage'] != null
+          ? (map['bannerImage'] as String).toUint8List()
+          : null,
+      intrinsicImage: map['intrinsicImage'] != null
+          ? (map['intrinsicImage'] as String).toUint8List()
+          : null,
+      fontFamily: (map['fontFamily'] as String).toFontFamily(),
+      isConfig: map['isConfig'] ?? false,
+      title: map['title'] ?? '',
+      subtitle: map['subtitle'] ?? '',
+      locked: map['locked'] ?? false,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ConfigBannerModel.fromJson(String source) =>
+      ConfigBannerModel.fromMap(json.decode(source));
 }

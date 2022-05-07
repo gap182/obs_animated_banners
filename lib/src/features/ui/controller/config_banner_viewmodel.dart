@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
@@ -98,7 +100,7 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
     }
   }
 
-  void changeImage(Image? image, ImageTypeLocal imageType) {
+  void changeImage(Uint8List? image, ImageTypeLocal imageType) {
     if (imageType == ImageTypeLocal.bannerImage) {
       state = state.copyWith(bannerImage: image);
     } else if (imageType == ImageTypeLocal.intrinsicImage) {

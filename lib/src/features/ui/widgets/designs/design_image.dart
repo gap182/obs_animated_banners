@@ -12,7 +12,12 @@ class DesignImage extends ConsumerWidget {
     return SizedBox(
       width: size.width * values.pcWidth,
       height: size.height * values.pcHeight,
-      child: values.intrinsicImage,
+      child: values.intrinsicImage != null
+          ? Image.memory(
+              values.intrinsicImage!,
+              fit: BoxFit.fill,
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

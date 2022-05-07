@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
+import 'package:obs_animated_banners/src/core/utils/common_extensions.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
 
 class DesignContainer extends ConsumerWidget {
@@ -10,6 +11,9 @@ class DesignContainer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final values = ref.watch(configBannerPod);
     final size = MediaQuery.of(context).size;
+    final fontFamily = values.fontFamily.toShortString().replaceFirst(
+        values.fontFamily.toShortString()[0],
+        values.fontFamily.toShortString()[0].toUpperCase());
     return Container(
       width: size.width * values.pcWidth,
       height: size.height * values.pcHeight,
@@ -44,7 +48,7 @@ class DesignContainer extends ConsumerWidget {
                       values.title,
                       style: TextStyle(
                         color: values.titleColor,
-                        fontFamily: values.fontFamily.toShortString(),
+                        fontFamily: fontFamily,
                         fontSize: values.fontSize * 1.3,
                       ),
                     ),
@@ -55,7 +59,7 @@ class DesignContainer extends ConsumerWidget {
                       values.subtitle,
                       style: TextStyle(
                         color: values.subtitleColor,
-                        fontFamily: values.fontFamily.toShortString(),
+                        fontFamily: fontFamily,
                         fontSize: values.fontSize,
                       ),
                     ),

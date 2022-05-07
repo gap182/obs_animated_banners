@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -309,8 +311,8 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          Image? fromPicker =
-                              await ImagePickerWeb.getImageAsWidget();
+                          Uint8List? fromPicker =
+                              await ImagePickerWeb.getImageAsBytes();
                           ref.read(configBannerPod.notifier).changeImage(
                               fromPicker, ImageTypeLocal.bannerImage);
                         },
@@ -322,8 +324,9 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
                                     .select((value) => value.bannerImage));
                                 return SizedBox(
                                   height: 100,
-                                  child: bannerImage ??
-                                      Image.asset(
+                                  child: bannerImage != null
+                                      ? Image.memory(bannerImage)
+                                      : Image.asset(
                                           'assets/images/no_image.jpeg'),
                                 );
                               },
@@ -373,8 +376,8 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          Image? fromPicker =
-                              await ImagePickerWeb.getImageAsWidget();
+                          Uint8List? fromPicker =
+                              await ImagePickerWeb.getImageAsBytes();
                           ref.read(configBannerPod.notifier).changeImage(
                               fromPicker, ImageTypeLocal.intrinsicImage);
                         },
@@ -386,8 +389,9 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
                                     .select((value) => value.intrinsicImage));
                                 return SizedBox(
                                   height: 100,
-                                  child: intrinsicImage ??
-                                      Image.asset(
+                                  child: intrinsicImage != null
+                                      ? Image.memory(intrinsicImage)
+                                      : Image.asset(
                                           'assets/images/no_image.jpeg'),
                                 );
                               },
