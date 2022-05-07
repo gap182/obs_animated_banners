@@ -17,8 +17,8 @@ class MainView extends ConsumerWidget {
             color: Colors.grey[200],
             child: PageView(
               children: const [
-                ConfigurationBanner(),
                 SavedBanner(),
+                ConfigurationBanner(),
               ],
             ),
           ),

@@ -45,7 +45,7 @@ class _BackgroundSideState extends ConsumerState<BackgroundSide>
 
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: valuesConfig.animationDuration.toInt()),
+      duration: Duration(milliseconds: valuesConfig.animationDuration.ceil()),
     );
 
     ref.read(animationControllerPod.notifier).changeController(controller);
@@ -71,13 +71,13 @@ class _BackgroundSideState extends ConsumerState<BackgroundSide>
                   bottom: size.height * valuesConfig.pcPosY,
                   child: getBanner(valuesConfig.designType, size))
               : const SizedBox.shrink(),
-          isSlide
-              ? SlideLR(animation: animation)
-              : valuesConfig.animationType == AnimationType.visibility
-                  ? VisibilityAnimation(listenable: animation)
-                  : valuesConfig.animationType == AnimationType.increase
-                      ? ScaleAnimation(listenable: animation)
-                      : const SizedBox.shrink(),
+          // isSlide
+          //     ? SlideLR(animation: animation)
+          //     : valuesConfig.animationType == AnimationType.visibility
+          //         ? VisibilityAnimation(listenable: animation)
+          //         : valuesConfig.animationType == AnimationType.increase
+          //             ? ScaleAnimation(listenable: animation)
+          //             : const SizedBox.shrink(),
         ],
       ),
     );

@@ -21,10 +21,12 @@ class ConfigOptions extends ConsumerStatefulWidget {
 
 class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
   final durationController = TextEditingController();
+  final pauseTimeController = TextEditingController();
 
   @override
   void dispose() {
     durationController.dispose();
+    pauseTimeController.dispose();
     super.dispose();
   }
 
@@ -33,6 +35,7 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
     WidgetsFlutterBinding.ensureInitialized();
     durationController.text =
         ref.read(configBannerPod).animationDuration.toString();
+    pauseTimeController.text = ref.read(configBannerPod).pauseTime.toString();
     super.initState();
   }
 
@@ -514,6 +517,22 @@ class _ConfigOptionsState extends ConsumerState<ConfigOptions> {
           onChanged: (v) {
             final value = double.tryParse(v);
             ref.read(configBannerPod.notifier).changeAnimationDuration(value);
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        TextField(
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          controller: pauseTimeController,
+          decoration: InputDecoration(
+            label: Text(AppLocalizations.of(context)!.timePause),
+          ),
+          onChanged: (v) {
+            final value = double.tryParse(v);
+            ref.read(configBannerPod.notifier).changePauseTime(value);
           },
         ),
       ],

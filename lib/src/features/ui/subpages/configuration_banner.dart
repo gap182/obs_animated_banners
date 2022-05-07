@@ -21,6 +21,7 @@ class _ConfigurationBannerState extends ConsumerState<ConfigurationBanner> {
   Widget build(BuildContext context) {
     final isConfig =
         ref.watch(configBannerPod.select((value) => value.isConfig));
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       color: Colors.white,

@@ -70,10 +70,13 @@ class ConfigBannerModel extends Equatable {
   final AnimationType animationType;
   final AnimationCurve animationCurve;
   final double animationDuration;
+  final double pauseTime;
   final Image? bannerImage;
   final Image? intrinsicImage;
   final FontFamily fontFamily;
   final bool isConfig;
+  final String title;
+  final String subtitle;
   const ConfigBannerModel({
     this.pcWidth = 0.2,
     this.pcHeight = 0.1,
@@ -92,13 +95,16 @@ class ConfigBannerModel extends Equatable {
     this.designType = DesignType.container,
     this.animationType = AnimationType.slideXLR,
     this.animationCurve = AnimationCurve.ease,
-    this.animationDuration = 10000,
+    this.animationDuration = 5000,
+    this.pauseTime = 2000,
     this.bannerImage,
     this.intrinsicImage,
     this.fontFamily = FontFamily.montserrat,
     this.isConfig = true,
     this.fontSize = 10,
     this.borderSize = 4.0,
+    this.title = '',
+    this.subtitle = '',
   });
 
   ConfigBannerModel copyWith({
@@ -122,10 +128,13 @@ class ConfigBannerModel extends Equatable {
     AnimationType? animationType,
     AnimationCurve? animationCurve,
     double? animationDuration,
+    double? pauseTime,
     Image? bannerImage,
     Image? intrinsicImage,
     FontFamily? fontFamily,
     bool? isConfig,
+    String? title,
+    String? subtitle,
   }) {
     return ConfigBannerModel(
       pcWidth: pcWidth ?? this.pcWidth,
@@ -148,10 +157,13 @@ class ConfigBannerModel extends Equatable {
       animationType: animationType ?? this.animationType,
       animationCurve: animationCurve ?? this.animationCurve,
       animationDuration: animationDuration ?? this.animationDuration,
+      pauseTime: pauseTime ?? this.pauseTime,
       bannerImage: bannerImage ?? this.bannerImage,
       intrinsicImage: intrinsicImage ?? this.intrinsicImage,
       fontFamily: fontFamily ?? this.fontFamily,
       isConfig: isConfig ?? this.isConfig,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
     );
   }
 
@@ -177,11 +189,14 @@ class ConfigBannerModel extends Equatable {
         animationType: animationType,
         animationCurve: animationCurve,
         animationDuration: animationDuration,
+        pauseTime: pauseTime,
         bannerImage: null,
         intrinsicImage: intrinsicImage,
         fontFamily: fontFamily,
         isConfig: isConfig,
         borderSize: borderSize,
+        title: title,
+        subtitle: subtitle,
       );
     } else if (imageTypeLocal == ImageTypeLocal.intrinsicImage) {
       return ConfigBannerModel(
@@ -204,11 +219,14 @@ class ConfigBannerModel extends Equatable {
         animationType: animationType,
         animationCurve: animationCurve,
         animationDuration: animationDuration,
+        pauseTime: pauseTime,
         bannerImage: bannerImage,
         intrinsicImage: null,
         fontFamily: fontFamily,
         isConfig: isConfig,
         borderSize: borderSize,
+        title: title,
+        subtitle: subtitle,
       );
     } else {
       return ConfigBannerModel(
@@ -231,18 +249,21 @@ class ConfigBannerModel extends Equatable {
         animationType: animationType,
         animationCurve: animationCurve,
         animationDuration: animationDuration,
+        pauseTime: pauseTime,
         bannerImage: null,
         intrinsicImage: intrinsicImage,
         fontFamily: fontFamily,
         isConfig: isConfig,
         borderSize: borderSize,
+        title: title,
+        subtitle: subtitle,
       );
     }
   }
 
   @override
   String toString() {
-    return 'ConfigBannerModel(pcWidth: $pcWidth, pcHeight: $pcHeight, pcPosX: $pcPosX, pcPosY: $pcPosY, radiusSize: $radiusSize, elevation: $elevation, elevationOffset: $elevationOffset, primary: $primary, secondary: $secondary, background: $background, titleColor: $titleColor, subtitleColor: $subtitleColor, shadowColor: $shadowColor, isImageBase: $isImageBase, designType: $designType, animationType: $animationType, animationCurve: $animationCurve, animationDuration: $animationDuration, bannerImage: $bannerImage, intrinsicImage: $intrinsicImage, fontFamily: $fontFamily)';
+    return 'ConfigBannerModel(pcWidth: $pcWidth, pcHeight: $pcHeight, pcPosX: $pcPosX, pcPosY: $pcPosY, radiusSize: $radiusSize, elevation: $elevation, fontSize: $fontSize, borderSize: $borderSize, elevationOffset: $elevationOffset, primary: $primary, secondary: $secondary, background: $background, titleColor: $titleColor, subtitleColor: $subtitleColor, shadowColor: $shadowColor, isImageBase: $isImageBase, designType: $designType, animationType: $animationType, animationCurve: $animationCurve, animationDuration: $animationDuration, pauseTime: $pauseTime, bannerImage: $bannerImage, intrinsicImage: $intrinsicImage, fontFamily: $fontFamily, isConfig: $isConfig, title: $title, subtitle: $subtitle)';
   }
 
   @override
@@ -254,6 +275,8 @@ class ConfigBannerModel extends Equatable {
       pcPosY,
       radiusSize,
       elevation,
+      fontSize,
+      borderSize,
       elevationOffset,
       primary,
       secondary,
@@ -266,12 +289,13 @@ class ConfigBannerModel extends Equatable {
       animationType,
       animationCurve,
       animationDuration,
+      pauseTime,
       bannerImage,
       intrinsicImage,
       fontFamily,
       isConfig,
-      fontSize,
-      borderSize,
+      title,
+      subtitle,
     ];
   }
 }

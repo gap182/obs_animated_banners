@@ -71,6 +71,10 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
     state = state.copyWith(animationDuration: duration);
   }
 
+  void changePauseTime(double? time) {
+    state = state.copyWith(pauseTime: time);
+  }
+
   void changeColor(ColorType colorType, Color color) {
     switch (colorType) {
       case ColorType.primary:
@@ -116,5 +120,13 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
 
   void changeBorderSide(double borderSize) {
     state = state.copyWith(borderSize: borderSize);
+  }
+
+  void changeTitle(String value) {
+    state = state.copyWith(title: value);
+  }
+
+  void changeSubtitle(String value) {
+    state = state.copyWith(subtitle: value);
   }
 }

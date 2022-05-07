@@ -49,5 +49,8 @@
     "pickAColor": "Selecciona un color",
     "activateConfig": "Activar configuración",
     "fontSize": "Tamaño de letra",
-    "image": "Imagen"
+    "image": "Imagen",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "timePause": "Tiempo de pausa"
 }
