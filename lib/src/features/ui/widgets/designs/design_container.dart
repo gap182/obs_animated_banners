@@ -14,6 +14,9 @@ class DesignContainer extends ConsumerWidget {
     final fontFamily = values.fontFamily.toShortString().replaceFirst(
         values.fontFamily.toShortString()[0],
         values.fontFamily.toShortString()[0].toUpperCase());
+
+    final title = ref.watch(textinfoPod.select((value) => value.title));
+    final subtitle = ref.watch(textinfoPod.select((value) => value.subtitle));
     return Container(
       width: size.width * values.pcWidth,
       height: size.height * values.pcHeight,
@@ -45,7 +48,7 @@ class DesignContainer extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      values.title,
+                      title ?? '',
                       style: TextStyle(
                         color: values.titleColor,
                         fontFamily: fontFamily,
@@ -56,7 +59,7 @@ class DesignContainer extends ConsumerWidget {
                       height: 10,
                     ),
                     Text(
-                      values.subtitle,
+                      subtitle ?? '',
                       style: TextStyle(
                         color: values.subtitleColor,
                         fontFamily: fontFamily,

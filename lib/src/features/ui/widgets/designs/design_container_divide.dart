@@ -14,6 +14,9 @@ class DesignContainerDivide extends ConsumerWidget {
     final fontFamily = values.fontFamily.toShortString().replaceFirst(
         values.fontFamily.toShortString()[0],
         values.fontFamily.toShortString()[0].toUpperCase());
+
+    final title = ref.watch(textinfoPod.select((value) => value.title));
+    final subtitle = ref.watch(textinfoPod.select((value) => value.subtitle));
     return Container(
       width: size.width * values.pcWidth,
       height: size.height * values.pcHeight,
@@ -63,7 +66,7 @@ class DesignContainerDivide extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      values.title,
+                      title ?? '',
                       style: TextStyle(
                         color: values.titleColor,
                         fontFamily: fontFamily,
@@ -71,10 +74,10 @@ class DesignContainerDivide extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Text(
-                      values.subtitle,
+                      subtitle ?? '',
                       style: TextStyle(
                         color: values.subtitleColor,
                         fontFamily: fontFamily,

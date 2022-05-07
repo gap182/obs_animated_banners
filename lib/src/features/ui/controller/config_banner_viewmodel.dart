@@ -124,14 +124,6 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
     state = state.copyWith(borderSize: borderSize);
   }
 
-  void changeTitle(String value) {
-    state = state.copyWith(title: value);
-  }
-
-  void changeSubtitle(String value) {
-    state = state.copyWith(subtitle: value);
-  }
-
   void changeLock() {
     state = state.copyWith(locked: !state.locked);
   }

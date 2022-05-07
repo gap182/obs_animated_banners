@@ -13,6 +13,8 @@ class DesignLetter extends ConsumerWidget {
     final fontFamily = values.fontFamily.toShortString().replaceFirst(
         values.fontFamily.toShortString()[0],
         values.fontFamily.toShortString()[0].toUpperCase());
+    final title = ref.watch(textinfoPod.select((value) => value.title));
+    final subtitle = ref.watch(textinfoPod.select((value) => value.subtitle));
     return IntrinsicWidth(
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
@@ -21,7 +23,7 @@ class DesignLetter extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                values.title,
+                title ?? '',
                 style: TextStyle(
                   color: values.titleColor,
                   fontFamily: fontFamily,
@@ -32,7 +34,7 @@ class DesignLetter extends ConsumerWidget {
                 height: 20,
               ),
               Text(
-                values.subtitle,
+                subtitle ?? '',
                 style: TextStyle(
                   color: values.subtitleColor,
                   fontFamily: fontFamily,

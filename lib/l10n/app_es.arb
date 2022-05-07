@@ -52,5 +52,9 @@
     "image": "Imagen",
     "title": "Título",
     "subtitle": "Subtítulo",
-    "timePause": "Tiempo de pausa (ms)"
+    "timePause": "Tiempo de pausa (ms)",
+    "saveGroup": "Guardar grupo",
+    "nameGroup": "Nombre de grupo",
+    "deleteGroups": "Eliminar todos los grupos",
+    "existGroup": "Ya existe un grupo con ese nombre, intentan con otro"
 }

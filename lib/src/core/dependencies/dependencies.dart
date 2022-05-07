@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/animation_model.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/animation_viewmodel.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
 import 'package:obs_animated_banners/src/features/ui/controller/config_banner_viewmodel.dart';
+import 'package:obs_animated_banners/src/features/ui/controller/list_group_model.dart';
+import 'package:obs_animated_banners/src/features/ui/controller/list_group_viewmodel.dart';
+import 'package:obs_animated_banners/src/features/ui/controller/textinfo_model.dart';
+import 'package:obs_animated_banners/src/features/ui/controller/textinfo_viewmodel.dart';
+import 'package:obs_animated_banners/src/features/ui/storage/banner_storage.dart';
+import 'package:obs_animated_banners/src/features/ui/storage/banner_storage_viewmodel.dart';
+import 'package:obs_animated_banners/src/features/ui/storage/crud.dart';
 
 final configBannerPod =
     StateNotifierProvider<ConfigBannerViewModel, ConfigBannerModel>((ref) {
@@ -52,4 +60,31 @@ final animationPod = Provider.family<Tween<double>, Size>((ref, size) {
 final animationControllerPod =
     StateNotifierProvider<AnimationViewModel, AnimationModel>((ref) {
   return AnimationViewModel(ref);
+});
+
+final textinfoPod =
+    StateNotifierProvider<TextinfoViewModel, TextinfoModel>((ref) {
+  return TextinfoViewModel(const TextinfoModel(index: 0));
+});
+
+final hivePod = FutureProvider<Box<BannerStorage>>((ref) async {
+  final box = await Hive.openBox<BannerStorage>('banner');
+  return box;
+});
+
+final crudPod = FutureProvider((ref) async {
+  final crud = Crud(ref);
+  await crud.init();
+  return crud;
+});
+
+final bannerStoragePod =
+    StateNotifierProvider<BannerStorageViewModel, BannerStorage>((ref) {
+  return BannerStorageViewModel(
+      const BannerStorage(group: {}, texts: [], name: ''));
+});
+
+final listGroupPod =
+    StateNotifierProvider<ListGroupViewModel, ListGroupModel>((ref) {
+  return ListGroupViewModel();
 });
