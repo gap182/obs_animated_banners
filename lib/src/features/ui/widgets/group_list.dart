@@ -7,7 +7,14 @@ import 'package:obs_animated_banners/src/features/ui/widgets/minimal_buttons.dar
 import 'package:obs_animated_banners/src/features/ui/widgets/text_container.dart';
 
 class GroupList extends ConsumerStatefulWidget {
-  const GroupList({Key? key}) : super(key: key);
+  const GroupList({
+    Key? key,
+    required this.titleController,
+    required this.subtitleController,
+  }) : super(key: key);
+
+  final TextEditingController titleController;
+  final TextEditingController subtitleController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _GroupListState();
@@ -25,6 +32,8 @@ class _GroupListState extends ConsumerState<GroupList> {
   void _loadInitData() async {
     crud = ref.read(crudProvider);
     await crud.init();
+    final initGroups = crud.getGroups();
+    ref.read(listGroupPod.notifier).updateGroups(initGroups);
   }
 
   @override
@@ -62,7 +71,7 @@ class _GroupListState extends ConsumerState<GroupList> {
                             }
 
                             crud.addText(group.name, textInfo.toMap(),
-                                group.texts.length + 1);
+                                group.texts.length + 1, true);
                           },
                           child: const Icon(Icons.add),
                         ),
@@ -80,23 +89,39 @@ class _GroupListState extends ConsumerState<GroupList> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Wrap(
-                      children: List.generate(group.texts.length, (index2) {
-                        final isSelected = (indexGroup == index &&
-                            indexText == group.texts[index2]["index"]);
-                        return GestureDetector(
-                          onTap: () => ref
-                              .read(listGroupPod.notifier)
-                              .changeSelection(
-                                  index, group.texts[index2]["index"]),
-                          child: TextContainer(
-                            isSelected: isSelected,
-                            child: Text(
-                              (group.texts[index2]["index"]).toString(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        children: List.generate(group.texts.length, (index2) {
+                          final isSelected = (indexGroup == index &&
+                              indexText == group.texts[index2]["index"]);
+                          return GestureDetector(
+                            onTap: () {
+                              ref.read(listGroupPod.notifier).changeSelection(
+                                  index, group.texts[index2]["index"]);
+
+                              ref
+                                  .read(configBannerPod.notifier)
+                                  .loadConfigFromMap(group.group);
+
+                              ref
+                                  .read(textinfoPod.notifier)
+                                  .loadDataFromMap(group.texts[index2]);
+
+                              widget.titleController.text =
+                                  group.texts[index2]["title"];
+                              widget.subtitleController.text =
+                                  group.texts[index2]["subtitle"];
+                            },
+                            child: TextContainer(
+                              isSelected: isSelected,
+                              child: Text(
+                                (group.texts[index2]["index"]).toString(),
+                              ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     )
                   ],
                 ),

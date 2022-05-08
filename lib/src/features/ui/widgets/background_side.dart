@@ -63,7 +63,8 @@ class _BackgroundSideState extends ConsumerState<BackgroundSide>
       child: Stack(
         children: [
           Container(
-            color: ref.watch(configBannerPod).background,
+            // color: ref.watch(configBannerPod).background,
+            color: Colors.transparent,
           ),
           valuesConfig.isConfig
               ? Positioned(

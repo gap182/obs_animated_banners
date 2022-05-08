@@ -11,4 +11,8 @@ class TextinfoViewModel extends StateNotifier<TextinfoModel> {
   void changeSubtitle(String value) {
     state = state.copyWith(subtitle: value);
   }
+
+  void loadDataFromMap(Map<String, dynamic> map) {
+    state = TextinfoModel.fromMap(map);
+  }
 }

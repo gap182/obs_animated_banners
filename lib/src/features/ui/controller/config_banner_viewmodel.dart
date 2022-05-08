@@ -127,4 +127,8 @@ class ConfigBannerViewModel extends StateNotifier<ConfigBannerModel> {
   void changeLock() {
     state = state.copyWith(locked: !state.locked);
   }
+
+  void loadConfigFromMap(Map<String, dynamic> map) {
+    state = ConfigBannerModel.fromMap(map);
+  }
 }

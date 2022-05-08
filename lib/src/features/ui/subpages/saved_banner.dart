@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:obs_animated_banners/src/features/ui/messages/custom_snackbar.dart';
 import 'package:obs_animated_banners/src/features/ui/storage/banner_storage.dart';
 import 'package:obs_animated_banners/src/features/ui/storage/crud.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/animation_button.dart';
@@ -53,11 +52,22 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
     final textinfoViewmodel = ref.read(textinfoPod.notifier);
     final bannerStorageViewmodel = ref.read(bannerStoragePod.notifier);
 
+    final isConfig = configPod.isConfig;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           children: [
+            Switch(
+                value: isConfig,
+                onChanged: (v) => ref
+                    .read(configBannerPod.notifier)
+                    .changeConfigActivation()),
+            Text(AppLocalizations.of(context)!.activateConfig),
+            const SizedBox(
+              height: 20,
+            ),
             TextField(
               decoration: InputDecoration(
                 label: Text(AppLocalizations.of(context)!.title),
@@ -156,8 +166,14 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
                                 name: bannerStorageModel.name);
 
                             if (crud.existGroup(bannerStorage.name)) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(groupExistSnackbar(context));
+                              final oldBannerStorage =
+                                  crud.readGroup(bannerStorage.name);
+
+                              if (oldBannerStorage != null) {
+                                crud.updateGroup(bannerStorage.name,
+                                    bannerStorage, oldBannerStorage);
+                              }
+
                               return;
                             }
 
@@ -183,7 +199,10 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
             const SizedBox(
               height: 20,
             ),
-            const GroupList()
+            GroupList(
+              titleController: titleController,
+              subtitleController: subtitleController,
+            )
           ],
         ),
       ),

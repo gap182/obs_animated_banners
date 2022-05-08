@@ -21,6 +21,31 @@ class Crud {
     ref.read(listGroupPod.notifier).updateGroups(getGroups());
   }
 
+  BannerStorage? readGroup(String name) {
+    if (box == null) return null;
+    final result = box!.get(name);
+    return result;
+  }
+
+  void updateGroup(String name, BannerStorage currentBanner,
+      BannerStorage oldBannerStorage) {
+    if (box == null) return;
+    final result = box!.get(name);
+    final oldTexts = <Map<String, dynamic>>[];
+
+    if (result != null) {
+      oldTexts.addAll(result.texts);
+    }
+
+    final newBannerStorage =
+        BannerStorage(group: currentBanner.group, texts: oldTexts, name: name);
+
+    deleteGroup(name);
+    addGroup(name, newBannerStorage);
+
+    ref.read(listGroupPod.notifier).updateGroups(getGroups());
+  }
+
   void deleteGroup(String name) {
     if (box == null) return;
     box!.delete(name);
@@ -40,7 +65,7 @@ class Crud {
     ref.read(listGroupPod.notifier).updateGroups(getGroups());
   }
 
-  void addText(String name, Map<String, dynamic> text, int index) {
+  void addText(String name, Map<String, dynamic> text, int index, bool update) {
     if (box == null) return;
     final storage = box!.get(name);
     if (storage == null) return;
@@ -51,8 +76,9 @@ class Crud {
     final newStorage = storage.copyWith(texts: texts);
     box!.delete(name);
     box!.put(name, newStorage);
-
-    ref.read(listGroupPod.notifier).updateGroups(getGroups());
+    if (update) {
+      ref.read(listGroupPod.notifier).updateGroups(getGroups());
+    }
   }
 
   void deleteText(String name, int index) {

@@ -10,11 +10,12 @@ class MainView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Row(
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.2,
-            color: Colors.grey[200],
+            color: Colors.transparent,
             child: PageView(
               children: const [
                 SavedBanner(),
