@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
-import 'package:obs_animated_banners/src/features/ui/controller/textinfo_model.dart';
 import 'package:obs_animated_banners/src/features/ui/messages/custom_snackbar.dart';
 import 'package:obs_animated_banners/src/features/ui/storage/crud.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/minimal_buttons.dart';
-import 'package:obs_animated_banners/src/features/ui/widgets/primary_button.dart';
 import 'package:obs_animated_banners/src/features/ui/widgets/text_container.dart';
 
-class GroupList extends ConsumerWidget {
-  GroupList({Key? key}) : super(key: key);
+class GroupList extends ConsumerStatefulWidget {
+  const GroupList({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _GroupListState();
+}
+
+class _GroupListState extends ConsumerState<GroupList> {
   late Crud crud;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    _loadInitData();
+    super.initState();
+  }
+
+  void _loadInitData() async {
+    crud = ref.read(crudProvider);
+    await crud.init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final groupModel = ref.watch(listGroupPod);
-    final futureCrud = ref.watch(crudPod);
     final textInfo = ref.watch(textinfoPod);
 
-    futureCrud.whenData((value) => crud = value);
     return Expanded(
       child: SingleChildScrollView(
         child: SizedBox(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obs_animated_banners/src/core/theme/colors.dart';
 
 class AnimationButton extends ConsumerWidget {
   const AnimationButton({

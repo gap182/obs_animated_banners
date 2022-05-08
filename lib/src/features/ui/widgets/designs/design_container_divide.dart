@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obs_animated_banners/src/core/dependencies/dependencies.dart';
 import 'package:obs_animated_banners/src/core/utils/common_extensions.dart';
-import 'package:obs_animated_banners/src/features/ui/controller/config_banner_model.dart';
 
 class DesignContainerDivide extends ConsumerWidget {
   const DesignContainerDivide({Key? key}) : super(key: key);

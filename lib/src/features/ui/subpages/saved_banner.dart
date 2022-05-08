@@ -25,9 +25,15 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
 
   @override
   void initState() {
+    _loadInitData();
     titleController.text = ref.read(textinfoPod).title ?? '';
     subtitleController.text = ref.read(textinfoPod).subtitle ?? '';
     super.initState();
+  }
+
+  void _loadInitData() async {
+    crud = ref.read(crudProvider);
+    await crud.init();
   }
 
   @override
@@ -39,14 +45,8 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    final futureCrud = ref.watch(crudPod);
-    final textPod = ref.watch(textinfoPod);
     final configPod = ref.watch(configBannerPod);
     final bannerStorageModel = ref.watch(bannerStoragePod);
-
-    futureCrud.whenData((value) => crud = value);
 
     final controller = ref.read(animationControllerPod.notifier);
     final configViewmodel = ref.read(configBannerPod.notifier);
@@ -151,6 +151,7 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
                         ? () {
                             final bannerStorage = BannerStorage(
                                 group: configPod.toMap(),
+                                // ignore: prefer_const_literals_to_create_immutables
                                 texts: [],
                                 name: bannerStorageModel.name);
 
@@ -182,7 +183,7 @@ class _SavedBannerState extends ConsumerState<SavedBanner> {
             const SizedBox(
               height: 20,
             ),
-            GroupList()
+            const GroupList()
           ],
         ),
       ),

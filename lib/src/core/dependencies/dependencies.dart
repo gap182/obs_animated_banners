@@ -78,6 +78,8 @@ final crudPod = FutureProvider((ref) async {
   return crud;
 });
 
+final crudProvider = Provider((ref) => Crud(ref));
+
 final bannerStoragePod =
     StateNotifierProvider<BannerStorageViewModel, BannerStorage>((ref) {
   return BannerStorageViewModel(
